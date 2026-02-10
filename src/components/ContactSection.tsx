@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Linkedin, Mail, Github, Twitter } from "lucide-react";
+import { Linkedin, Mail, Github } from "lucide-react";
 
 const ContactSection = () => {
   const socialLinks = [
     { icon: Linkedin, href: "https://www.linkedin.com/in/mbilotta/", label: "LinkedIn" },
     { icon: Github, href: "https://github.com/mbilo126", label: "GitHub" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
     { icon: Mail, href: "mailto:m.bilotta01@gmail.com", label: "Email" },
   ];
 
