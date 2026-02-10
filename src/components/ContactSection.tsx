@@ -25,7 +25,7 @@ const ContactSection = () => {
 
           {/* Main CTA */}
           <Button variant="hero" size="xl" className="mb-12" asChild>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/mbilotta/" target="_blank" rel="noopener noreferrer">
               <Linkedin className="mr-2 h-5 w-5" />
               View My LinkedIn Profile
             </a>
@@ -53,7 +53,7 @@ const ContactSection = () => {
       <div className="mt-24 pt-8 border-t border-border">
         <div className="container px-6">
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} AI & Machine Learning Specialist. All rights reserved.
+            © {new Date().getFullYear()} | Michele Ernesto Bilotta | All rights reserved.
           </p>
         </div>
       </div>
