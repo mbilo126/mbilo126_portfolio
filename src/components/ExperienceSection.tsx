@@ -4,38 +4,31 @@ const ExperienceSection = () => {
   const experiences = [
     {
       type: "work",
-      title: "Senior ML Engineer",
-      company: "Tech Company",
-      period: "2021 - Present",
-      description: "Leading ML initiatives, designing scalable AI systems, and mentoring engineering teams."
-    },
-    {
-      type: "work",
-      title: "Machine Learning Engineer",
-      company: "AI Startup",
-      period: "2018 - 2021",
+      title: "Data Scientist",
+      company: "STORViX",
+      period: "2025 - 2026",
       description: "Built production NLP models, improved model accuracy by 40%, deployed ML pipelines."
     },
     {
       type: "education",
-      title: "M.S. in Computer Science",
-      company: "Top University",
-      period: "2016 - 2018",
-      description: "Specialized in machine learning and artificial intelligence. Published 5 research papers."
+      title: "AI and Machine Learning higher vet",
+      company: "ITS Angelo Rizzoli",
+      period: "2024 - 2026",
+      description: "Specialized in machine learning and artificial intelligence. Published 1 research paper."
     },
     {
-      type: "work",
-      title: "Data Scientist",
-      company: "Enterprise Corp",
-      period: "2015 - 2018",
-      description: "Developed predictive models, conducted A/B testing, and created data-driven insights."
+      type: "education",
+      title: "Automation Engineering bachelor",
+      company: "Politecnico di Milano",
+      period: "2020 - 2023",
+      description: "Studied algorythm basics and advanced mathematics, C programming and software engineering."
     }
   ];
 
   return (
     <section id="experience" className="py-24 relative">
       <div className="absolute inset-0 neural-pattern opacity-50" />
-      
+
       <div className="container relative z-10 px-6">
         <div className="max-w-4xl mx-auto">
           {/* Section header */}

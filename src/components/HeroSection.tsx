@@ -57,7 +57,7 @@ const HeroSection = () => {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8 mt-16 max-w-xl mx-auto animate-fade-in" style={{ animationDelay: '0.4s' }}>
             {[
-              { value: '8+', label: 'Years Experience' },
+              { value: '1', label: 'Year Experience' },
               { value: '50+', label: 'ML Projects' },
               { value: '15+', label: 'Publications' },
             ].map((stat, index) => (
@@ -69,10 +69,13 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <ChevronDown className="w-6 h-6 text-muted-foreground" />
-        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer z-20">
+        <a href="#about" aria-label="Scroll down">
+          <ChevronDown className="w-8 h-8 text-primary shadow-sm" />
+        </a>
       </div>
     </section>
   );
