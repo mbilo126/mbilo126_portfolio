@@ -22,14 +22,13 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? "bg-background/80 backdrop-blur-lg border-b border-border" : ""
-    }`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/80 backdrop-blur-lg border-b border-border" : ""
+      }`}>
       <div className="container px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <a href="#" className="font-display font-bold text-xl gradient-text">
-            AI/ML
+            AI/ML Projects
           </a>
 
           {/* Desktop nav */}
@@ -44,7 +43,7 @@ const Navigation = () => {
               </a>
             ))}
             <Button variant="hero" size="sm" asChild>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/mbilotta/" target="_blank" rel="noopener noreferrer">
                 LinkedIn
               </a>
             </Button>
@@ -79,7 +78,7 @@ const Navigation = () => {
                 </a>
               ))}
               <Button variant="hero" size="sm" className="w-full mt-2" asChild>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/mbilotta/" target="_blank" rel="noopener noreferrer">
                   LinkedIn
                 </a>
               </Button>

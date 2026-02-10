@@ -9,7 +9,7 @@ const HeroSection = () => {
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse-glow" />
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '1.5s' }} />
       </div>
-      
+
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 opacity-5" style={{
         backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px), 
@@ -34,14 +34,14 @@ const HeroSection = () => {
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Transforming complex data into intelligent solutions. Specializing in deep learning, 
+            Transforming complex data into intelligent solutions. Specializing in deep learning,
             NLP, and scalable ML systems that drive real business impact.
           </p>
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <Button variant="hero" size="xl" asChild>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/mbilotta/" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="mr-2 h-5 w-5" />
                 Connect on LinkedIn
               </a>
