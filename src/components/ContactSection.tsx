@@ -3,10 +3,10 @@ import { Linkedin, Mail, Github, Twitter } from "lucide-react";
 
 const ContactSection = () => {
   const socialLinks = [
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Github, href: "https://github.com", label: "GitHub" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/mbilotta/", label: "LinkedIn" },
+    { icon: Github, href: "https://github.com/mbilo126", label: "GitHub" },
     { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+    { icon: Mail, href: "mailto:m.bilotta01@gmail.com", label: "Email" },
   ];
 
   return (
@@ -19,7 +19,7 @@ const ContactSection = () => {
             Let's <span className="gradient-text">Connect</span>
           </h3>
           <p className="text-lg text-muted-foreground mb-10">
-            Interested in collaboration, speaking opportunities, or just want to chat about AI? 
+            Interested in collaboration, speaking opportunities, or just want to chat about AI?
             I'd love to hear from you.
           </p>
 
