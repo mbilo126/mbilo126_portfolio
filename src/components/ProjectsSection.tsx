@@ -1,4 +1,5 @@
-import { Brain, Bot, BarChart3, Eye } from "lucide-react";
+import { Brain, Bot, BarChart3, Eye, FileText } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const ProjectsSection = () => {
   const projects = [
@@ -7,24 +8,28 @@ const ProjectsSection = () => {
       tech: "Python, Transformers, FastAPI",
       description: "End-to-end sentiment analysis pipeline processing 10K+ reviews daily with 94% accuracy using fine-tuned BERT models.",
       icon: Brain,
+      pdfUrl: "/pdfs/nlp-sentiment-analyzer.pdf",
     },
     {
       title: "Conversational AI Chatbot",
       tech: "LangChain, RAG, OpenAI, Pinecone",
       description: "Built a retrieval-augmented generation chatbot for enterprise knowledge bases, reducing support tickets by 35%.",
       icon: Bot,
+      pdfUrl: "/pdfs/conversational-ai-chatbot.pdf",
     },
     {
       title: "Predictive Maintenance System",
       tech: "PyTorch, Time Series, MLflow",
       description: "Developed LSTM-based anomaly detection for industrial IoT sensors, predicting equipment failures 48 hours in advance.",
       icon: BarChart3,
+      pdfUrl: "/pdfs/predictive-maintenance.pdf",
     },
     {
       title: "Computer Vision Quality Control",
       tech: "TensorFlow, OpenCV, Docker",
       description: "Real-time defect detection system for manufacturing lines achieving 99.2% precision at 30 FPS inference speed.",
       icon: Eye,
+      pdfUrl: "/pdfs/computer-vision-qc.pdf",
     },
   ];
 
@@ -69,7 +74,16 @@ const ProjectsSection = () => {
                       </div>
                       <h4 className="font-display font-semibold text-lg text-foreground hidden md:block mb-2">{project.title}</h4>
                       <p className="text-sm text-primary font-medium mb-2">{project.tech}</p>
-                      <p className="text-sm text-muted-foreground">{project.description}</p>
+                      <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-2"
+                        onClick={() => window.open(project.pdfUrl, '_blank')}
+                      >
+                        <FileText className="w-4 h-4" />
+                        View Project PDF
+                      </Button>
                     </div>
                   </div>
                 );
