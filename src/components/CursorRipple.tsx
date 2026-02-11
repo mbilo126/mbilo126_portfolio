@@ -50,7 +50,7 @@ const CursorRipple = () => {
 
     const resize = () => {
       canvas.width = window.innerWidth;
-      canvas.height = document.documentElement.scrollHeight;
+      canvas.height = window.innerHeight;
     };
     resize();
     window.addEventListener("resize", resize);
@@ -59,14 +59,13 @@ const CursorRipple = () => {
     resizeObserver.observe(document.documentElement);
 
     const handleMove = (e: MouseEvent) => {
-      addRipple(e.pageX, e.pageY);
+      addRipple(e.clientX, e.clientY);
     };
 
     const handleClick = (e: MouseEvent) => {
-      // bigger ripple on click
       ripplesRef.current.push({
-        x: e.pageX,
-        y: e.pageY,
+        x: e.clientX,
+        y: e.clientY,
         radius: 0,
         maxRadius: 120 + Math.random() * 40,
         opacity: 0.5,
