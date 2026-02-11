@@ -15,9 +15,17 @@ const CursorRipple = () => {
   const animFrameRef = useRef<number>(0);
   const lastRippleTime = useRef(0);
 
+  const isOverInteractive = useCallback((x: number, y: number) => {
+    const el = document.elementFromPoint(x, y);
+    if (!el) return false;
+    const interactive = el.closest('a, button, [role="button"], .gradient-border, .group, [class*="hover:scale"]');
+    return !!interactive;
+  }, []);
+
   const addRipple = useCallback((x: number, y: number) => {
+    if (isOverInteractive(x, y)) return;
     const now = Date.now();
-    if (now - lastRippleTime.current < 80) return;
+    if (now - lastRippleTime.current < 150) return;
     lastRippleTime.current = now;
 
     ripplesRef.current.push({
@@ -63,6 +71,7 @@ const CursorRipple = () => {
     };
 
     const handleClick = (e: MouseEvent) => {
+      if (isOverInteractive(e.clientX, e.clientY)) return;
       ripplesRef.current.push({
         x: e.clientX,
         y: e.clientY,
