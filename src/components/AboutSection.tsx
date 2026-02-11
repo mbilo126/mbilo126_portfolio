@@ -43,7 +43,7 @@ const AboutSection = () => {
             {/* Left: Bio */}
             <div className="space-y-6">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                AI and Machine Learning Specialist with a strong focus on designing and deploying predictive models
+                AI and Machine Learning with a strong focus on designing and deploying predictive models
                 and intelligent systems to tackle complex problems and deliver practical, scalable solutions.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
