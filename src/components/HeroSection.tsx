@@ -27,9 +27,9 @@ const HeroSection = () => {
 
           {/* Main heading */}
           <h1 className="font-display text-4xl md:text-7xl lg:text-8xl font-bold mb-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            <span className="text-foreground">AI & Machine</span>
+            <span className="text-foreground">Michele Bilotta</span>
             <br />
-            <span className="gradient-text">Learning Specialist</span>
+            <span className="gradient-text">AI & ML Specialist</span>
           </h1>
 
           {/* Subtitle */}
