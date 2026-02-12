@@ -1,11 +1,11 @@
-import { Brain, Cpu, Database, TrendingUp } from "lucide-react";
+import { Brain, Cpu, Database, Layers } from "lucide-react";
 
 const AboutSection = () => {
   const highlights = [
     {
       icon: Brain,
       title: "Deep Learning",
-      description: "Expertise in neural network architectures, transformers, and cutting-edge AI models"
+      description: "Deep knowledge of neural network architectures, transformers, and cutting-edge AI models"
     },
     {
       icon: Cpu,
@@ -18,9 +18,9 @@ const AboutSection = () => {
       description: "Processing and analyzing massive datasets for actionable insights"
     },
     {
-      icon: TrendingUp,
-      title: "Business Impact",
-      description: "Translating AI capabilities into measurable business outcomes"
+      icon: Layers,
+      title: "Full Stack Development",
+      description: "Building end-to-end web applications"
     }
   ];
 
