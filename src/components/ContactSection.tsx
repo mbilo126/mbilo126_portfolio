@@ -26,7 +26,7 @@ const ContactSection = () => {
           <Button variant="hero" size="xl" className="mb-12" asChild>
             <a href="https://www.linkedin.com/in/mbilotta/" target="_blank" rel="noopener noreferrer">
               <Linkedin className="mr-2 h-5 w-5" />
-              View My LinkedIn Profile
+              Connect on Linkedin
             </a>
           </Button>
 
