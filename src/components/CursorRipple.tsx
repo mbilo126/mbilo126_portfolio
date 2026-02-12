@@ -100,9 +100,11 @@ const CursorRipple = () => {
           continue;
         }
 
+        const isDark = document.documentElement.classList.contains('dark');
+        const color = isDark ? `hsla(192, 91%, 54%, ${r.opacity})` : `hsla(192, 91%, 35%, ${r.opacity})`;
         ctx.beginPath();
         ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `hsla(192, 91%, 54%, ${r.opacity})`;
+        ctx.strokeStyle = color;
         ctx.lineWidth = r.lineWidth;
         ctx.stroke();
       }
