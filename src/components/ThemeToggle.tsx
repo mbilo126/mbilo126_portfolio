@@ -16,8 +16,13 @@ const ThemeToggle = () => {
     } else {
       root.classList.remove("dark");
     }
-    localStorage.setItem("theme", isDark ? "dark" : "light");
   }, [isDark]);
+
+  const handleToggle = () => {
+    const next = !isDark;
+    setIsDark(next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+  };
 
   // Listen for system theme changes
   useEffect(() => {
@@ -33,7 +38,7 @@ const ThemeToggle = () => {
 
   return (
     <button
-      onClick={() => setIsDark(!isDark)}
+      onClick={handleToggle}
       className="p-2 rounded-lg hover:bg-secondary transition-colors"
       aria-label="Toggle theme"
     >
