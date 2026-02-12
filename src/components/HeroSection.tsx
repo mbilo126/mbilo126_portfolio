@@ -57,7 +57,7 @@ const HeroSection = () => {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8 mt-10 md:mt-16 mb-16 md:mb-0 max-w-xl mx-auto animate-fade-in" style={{ animationDelay: '0.4s' }}>
             {[
-              { value: '1', label: 'Year Experience' },
+              { value: '2', label: 'Years Experience' },
               { value: '20+', label: 'Programming Projects' },
               { value: '1', label: 'Publication' },
             ].map((stat, index) => (
