@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
   <meta charset="UTF-8" />
@@ -32,6 +32,13 @@
 </head>
 
 <body>
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      var d = t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.classList.toggle('dark', d);
+    })();
+  </script>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>

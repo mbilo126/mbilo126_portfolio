@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -43,6 +44,7 @@ const Navigation = () => {
                 {link.label}
               </a>
             ))}
+            <ThemeToggle />
             <Button variant="hero" size="sm" asChild>
               <a href="https://www.linkedin.com/in/mbilotta/" target="_blank" rel="noopener noreferrer">
                 LinkedIn
@@ -78,6 +80,10 @@ const Navigation = () => {
                   {link.label}
                 </a>
               ))}
+              <div className="flex items-center gap-3 py-2">
+                <span className="text-sm text-muted-foreground">Theme</span>
+                <ThemeToggle />
+              </div>
               <Button variant="hero" size="sm" className="w-full mt-2" asChild>
                 <a href="https://www.linkedin.com/in/mbilotta/" target="_blank" rel="noopener noreferrer">
                   LinkedIn
