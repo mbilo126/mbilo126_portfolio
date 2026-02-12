@@ -20,13 +20,13 @@ const HeroSection = () => {
       <div className="container relative z-10 px-6">
         <div className="max-w-4xl mx-auto text-center">
           {/* Status badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border mb-8 animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border mb-8 mt-16 md:mt-0 animate-fade-in">
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             <span className="text-sm text-muted-foreground">Available for opportunities</span>
           </div>
 
           {/* Main heading */}
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <h1 className="font-display text-4xl md:text-7xl lg:text-8xl font-bold mb-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             <span className="text-foreground">AI & Machine</span>
             <br />
             <span className="gradient-text">Learning Specialist</span>
@@ -55,15 +55,15 @@ const HeroSection = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-16 max-w-xl mx-auto animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          <div className="grid grid-cols-3 gap-8 mt-10 md:mt-16 mb-16 md:mb-0 max-w-xl mx-auto animate-fade-in" style={{ animationDelay: '0.4s' }}>
             {[
               { value: '1', label: 'Year Experience' },
               { value: '50+', label: 'ML Projects' },
               { value: '15+', label: 'Publications' },
             ].map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-display font-bold gradient-text">{stat.value}</div>
-                <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
+                <div className="text-2xl md:text-4xl font-display font-bold gradient-text">{stat.value}</div>
+                <div className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -72,7 +72,7 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer z-20">
+      <div className="hidden md:block absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer z-20">
         <a href="#about" aria-label="Scroll down">
           <ChevronDown className="w-8 h-8 text-primary shadow-sm" />
         </a>
