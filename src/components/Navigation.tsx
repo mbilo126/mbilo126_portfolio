@@ -107,6 +107,15 @@ const Navigation = () => {
           onClick={() => setIsMobileMenuOpen(false)}
         >
           {/* Glass menu card */}
+          {/* Close button */}
+          <button
+            className="absolute top-5 right-5 z-[70] p-3 rounded-full hover:bg-white/10 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/30"
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            <X className="w-7 h-7 text-white/80" />
+          </button>
+
           <div
             className={`transition-all duration-300 ease-in-out ${
               isMobileMenuOpen
