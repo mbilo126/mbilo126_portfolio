@@ -9,6 +9,8 @@ interface Ripple {
   lineWidth: number;
 }
 
+const MAX_RIPPLES = 30;
+
 const CursorRipple = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ripplesRef = useRef<Ripple[]>([]);
@@ -22,11 +24,16 @@ const CursorRipple = () => {
     return !!interactive;
   }, []);
 
-  const addRipple = useCallback((x: number, y: number) => {
+  const addRipple = useCallback((x: number, y: number, minInterval = 150) => {
     if (isOverInteractive(x, y)) return;
     const now = Date.now();
-    if (now - lastRippleTime.current < 150) return;
+    if (now - lastRippleTime.current < minInterval) return;
     lastRippleTime.current = now;
+
+    // Cap ripple count
+    if (ripplesRef.current.length >= MAX_RIPPLES) {
+      ripplesRef.current.shift();
+    }
 
     ripplesRef.current.push({
       x,
@@ -39,16 +46,18 @@ const CursorRipple = () => {
 
     // secondary ring
     setTimeout(() => {
-      ripplesRef.current.push({
-        x,
-        y,
-        radius: 0,
-        maxRadius: 50 + Math.random() * 30,
-        opacity: 0.2,
-        lineWidth: 1,
-      });
+      if (ripplesRef.current.length < MAX_RIPPLES) {
+        ripplesRef.current.push({
+          x,
+          y,
+          radius: 0,
+          maxRadius: 50 + Math.random() * 30,
+          opacity: 0.2,
+          lineWidth: 1,
+        });
+      }
     }, 120);
-  }, []);
+  }, [isOverInteractive]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -82,8 +91,25 @@ const CursorRipple = () => {
       });
     };
 
+    // Touch support for mobile
+    const handleTouchMove = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (touch) {
+        addRipple(touch.clientX, touch.clientY, 100);
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (touch) {
+        addRipple(touch.clientX, touch.clientY, 0);
+      }
+    };
+
     window.addEventListener("mousemove", handleMove);
     window.addEventListener("click", handleClick);
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -118,10 +144,12 @@ const CursorRipple = () => {
       cancelAnimationFrame(animFrameRef.current);
       window.removeEventListener("mousemove", handleMove);
       window.removeEventListener("click", handleClick);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("resize", resize);
       resizeObserver.disconnect();
     };
-  }, [addRipple]);
+  }, [addRipple, isOverInteractive]);
 
   return (
     <canvas

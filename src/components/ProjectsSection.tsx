@@ -34,13 +34,13 @@ const ProjectsSection = () => {
   ];
 
   return (
-    <section id="projects" className="py-24 bg-secondary/30">
-      <div className="container px-6">
+    <section id="projects" className="py-16 sm:py-24 bg-secondary/30">
+      <div className="container px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           {/* Section header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Projects</h2>
-            <h3 className="font-display text-4xl md:text-5xl font-bold text-foreground">
+            <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground">
               Featured <span className="gradient-text">Work</span>
             </h3>
           </div>
@@ -50,7 +50,7 @@ const ProjectsSection = () => {
             {/* Central vertical line */}
             <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-transparent hidden md:block" />
 
-            <div className="space-y-12">
+            <div className="space-y-8 sm:space-y-12">
               {projects.map((project, index) => {
                 const isLeft = index % 2 === 0;
                 const Icon = project.icon;
@@ -64,21 +64,21 @@ const ProjectsSection = () => {
 
                     {/* Card */}
                     <div
-                      className={`w-full md:w-[calc(50%-2.5rem)] gradient-border rounded-xl p-6 hover:scale-[1.02] transition-transform duration-300 ${
+                      className={`w-full md:w-[calc(50%-2.5rem)] gradient-border rounded-xl p-4 sm:p-6 hover:scale-[1.02] transition-transform duration-300 ${
                         isLeft ? "md:mr-auto" : "md:ml-auto"
                       }`}
                     >
                       <div className="flex items-center gap-3 mb-2 md:hidden">
-                        <Icon className="w-5 h-5 text-primary" />
-                        <h4 className="font-display font-semibold text-lg text-foreground">{project.title}</h4>
+                        <Icon className="w-5 h-5 text-primary shrink-0" />
+                        <h4 className="font-display font-semibold text-base sm:text-lg text-foreground">{project.title}</h4>
                       </div>
                       <h4 className="font-display font-semibold text-lg text-foreground hidden md:block mb-2">{project.title}</h4>
-                      <p className="text-sm text-primary font-medium mb-2">{project.tech}</p>
-                      <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
+                      <p className="text-xs sm:text-sm text-primary font-medium mb-2">{project.tech}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">{project.description}</p>
                       <Button
                         variant="outline"
                         size="sm"
-                        className="gap-2"
+                        className="gap-2 text-xs sm:text-sm"
                         onClick={() => window.open(project.pdfUrl, '_blank')}
                       >
                         <FileText className="w-4 h-4" />

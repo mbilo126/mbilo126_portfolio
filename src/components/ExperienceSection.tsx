@@ -26,15 +26,15 @@ const ExperienceSection = () => {
   ];
 
   return (
-    <section id="experience" className="py-24 relative">
+    <section id="experience" className="py-16 sm:py-24 relative">
       <div className="absolute inset-0 neural-pattern opacity-50" />
 
-      <div className="container relative z-10 px-6">
+      <div className="container relative z-10 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           {/* Section header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Experience</h2>
-            <h3 className="font-display text-4xl md:text-5xl font-bold text-foreground">
+            <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground">
               Professional <span className="gradient-text">Journey</span>
             </h3>
           </div>
@@ -42,28 +42,28 @@ const ExperienceSection = () => {
           {/* Timeline */}
           <div className="relative">
             {/* Vertical line */}
-            <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-transparent" />
+            <div className="absolute left-5 sm:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-transparent" />
 
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {experiences.map((exp, index) => (
-                <div key={index} className="relative flex gap-6">
+                <div key={index} className="relative flex gap-3 sm:gap-6">
                   {/* Icon */}
-                  <div className="relative z-10 w-16 h-16 rounded-full bg-card border-2 border-primary/30 flex items-center justify-center shrink-0">
+                  <div className="relative z-10 w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-card border-2 border-primary/30 flex items-center justify-center shrink-0">
                     {exp.type === "education" ? (
-                      <GraduationCap className="w-6 h-6 text-primary" />
+                      <GraduationCap className="w-4 h-4 sm:w-6 sm:h-6 text-primary" />
                     ) : (
-                      <Building2 className="w-6 h-6 text-primary" />
+                      <Building2 className="w-4 h-4 sm:w-6 sm:h-6 text-primary" />
                     )}
                   </div>
 
                   {/* Content card */}
-                  <div className="flex-1 gradient-border rounded-xl p-6 hover:scale-[1.02] transition-transform duration-300">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
-                      <h4 className="font-display font-semibold text-lg text-foreground">{exp.title}</h4>
-                      <span className="text-sm text-primary font-medium">{exp.period}</span>
+                  <div className="flex-1 min-w-0 gradient-border rounded-xl p-4 sm:p-6 hover:scale-[1.02] transition-transform duration-300">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2 mb-2">
+                      <h4 className="font-display font-semibold text-base sm:text-lg text-foreground">{exp.title}</h4>
+                      <span className="text-xs sm:text-sm text-primary font-medium">{exp.period}</span>
                     </div>
-                    <p className="text-muted-foreground font-medium mb-2">{exp.company}</p>
-                    <p className="text-sm text-muted-foreground">{exp.description}</p>
+                    <p className="text-sm sm:text-base text-muted-foreground font-medium mb-1 sm:mb-2">{exp.company}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">{exp.description}</p>
                   </div>
                 </div>
               ))}

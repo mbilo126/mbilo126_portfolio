@@ -9,21 +9,21 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 bg-secondary/30">
-      <div className="container px-6">
+    <section id="contact" className="py-16 sm:py-24 bg-secondary/30">
+      <div className="container px-4 sm:px-6">
         <div className="max-w-3xl mx-auto text-center">
           {/* Section header */}
           <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Get in Touch</h2>
-          <h3 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6">
             Let's <span className="gradient-text">Connect</span>
           </h3>
-          <p className="text-lg text-muted-foreground mb-10">
+          <p className="text-base sm:text-lg text-muted-foreground mb-8 sm:mb-10 px-2">
             Interested in collaboration, speaking opportunities, or just want to chat about AI?
             I'd love to hear from you.
           </p>
 
           {/* Main CTA */}
-          <Button variant="hero" size="xl" className="mb-12" asChild>
+          <Button variant="hero" size="xl" className="mb-10 sm:mb-12" asChild>
             <a href="https://www.linkedin.com/in/mbilotta/" target="_blank" rel="noopener noreferrer">
               <Linkedin className="mr-2 h-5 w-5" />
               Connect on Linkedin
@@ -49,9 +49,9 @@ const ContactSection = () => {
       </div>
 
       {/* Footer */}
-      <div className="mt-24 pt-8 border-t border-border">
-        <div className="container px-6">
-          <p className="text-center text-sm text-muted-foreground">
+      <div className="mt-16 sm:mt-24 pt-8 border-t border-border">
+        <div className="container px-4 sm:px-6">
+          <p className="text-center text-xs sm:text-sm text-muted-foreground">
             © {new Date().getFullYear()} | Michele Ernesto Bilotta | All rights reserved.
           </p>
         </div>
