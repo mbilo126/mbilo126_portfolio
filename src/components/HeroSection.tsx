@@ -1,13 +1,14 @@
+import { memo } from "react";
 import { Button } from "@/components/ui/button";
 import { Linkedin, Mail, ChevronDown } from "lucide-react";
 
-const HeroSection = () => {
+const HeroSection = memo(() => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden neural-pattern">
-      {/* Animated background elements */}
+      {/* Animated background elements — GPU-composited */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-56 md:w-80 h-56 md:h-80 bg-accent/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-primary/10 rounded-full blur-3xl will-change-transform" />
+        <div className="absolute bottom-1/4 right-1/4 w-56 md:w-80 h-56 md:h-80 bg-accent/10 rounded-full blur-3xl will-change-transform" />
       </div>
 
       {/* Grid pattern overlay */}
@@ -78,6 +79,7 @@ const HeroSection = () => {
       </div>
     </section>
   );
-};
+});
 
+HeroSection.displayName = "HeroSection";
 export default HeroSection;

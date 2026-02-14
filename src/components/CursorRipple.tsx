@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 
 interface Ripple {
   x: number;
@@ -9,128 +9,119 @@ interface Ripple {
   lineWidth: number;
 }
 
-const MAX_RIPPLES = 30;
+const MAX_RIPPLES = 20;
+const INTERACTIVE_SELECTOR = 'a, button, [role="button"], .gradient-border, .group, input, textarea, select';
 
 const CursorRipple = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ripplesRef = useRef<Ripple[]>([]);
-  const animFrameRef = useRef<number>(0);
+  const animFrameRef = useRef(0);
   const lastRippleTime = useRef(0);
-
-  const isOverInteractive = useCallback((x: number, y: number) => {
-    const el = document.elementFromPoint(x, y);
-    if (!el) return false;
-    const interactive = el.closest('a, button, [role="button"], .gradient-border, .group, [class*="hover:scale"]');
-    return !!interactive;
-  }, []);
-
-  const addRipple = useCallback((x: number, y: number, minInterval = 150) => {
-    if (isOverInteractive(x, y)) return;
-    const now = Date.now();
-    if (now - lastRippleTime.current < minInterval) return;
-    lastRippleTime.current = now;
-
-    // Cap ripple count
-    if (ripplesRef.current.length >= MAX_RIPPLES) {
-      ripplesRef.current.shift();
-    }
-
-    ripplesRef.current.push({
-      x,
-      y,
-      radius: 0,
-      maxRadius: 80 + Math.random() * 40,
-      opacity: 0.35,
-      lineWidth: 1.5,
-    });
-
-    // secondary ring
-    setTimeout(() => {
-      if (ripplesRef.current.length < MAX_RIPPLES) {
-        ripplesRef.current.push({
-          x,
-          y,
-          radius: 0,
-          maxRadius: 50 + Math.random() * 30,
-          opacity: 0.2,
-          lineWidth: 1,
-        });
-      }
-    }, 120);
-  }, [isOverInteractive]);
+  const isDarkRef = useRef(document.documentElement.classList.contains("dark"));
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
+    // Track dark mode changes efficiently
+    const observer = new MutationObserver(() => {
+      isDarkRef.current = document.documentElement.classList.contains("dark");
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+
+    let w = 0, h = 0;
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w;
+      canvas.height = h;
     };
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, { passive: true });
 
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(document.documentElement);
-
-    const handleMove = (e: MouseEvent) => {
-      addRipple(e.clientX, e.clientY);
+    const isOverInteractive = (x: number, y: number) => {
+      const el = document.elementFromPoint(x, y);
+      return el ? !!el.closest(INTERACTIVE_SELECTOR) : false;
     };
 
-    const handleClick = (e: MouseEvent) => {
-      if (isOverInteractive(e.clientX, e.clientY)) return;
-      ripplesRef.current.push({
-        x: e.clientX,
-        y: e.clientY,
+    const addRipple = (x: number, y: number, minInterval: number) => {
+      if (isOverInteractive(x, y)) return;
+      const now = performance.now();
+      if (now - lastRippleTime.current < minInterval) return;
+      lastRippleTime.current = now;
+
+      const ripples = ripplesRef.current;
+      if (ripples.length >= MAX_RIPPLES) ripples.shift();
+
+      ripples.push({
+        x, y,
         radius: 0,
-        maxRadius: 120 + Math.random() * 40,
-        opacity: 0.5,
-        lineWidth: 2,
+        maxRadius: 80 + Math.random() * 40,
+        opacity: 0.3,
+        lineWidth: 1.5,
       });
     };
 
-    // Touch support for mobile
+    const handleMove = (e: MouseEvent) => addRipple(e.clientX, e.clientY, 160);
+    const handleClick = (e: MouseEvent) => {
+      if (isOverInteractive(e.clientX, e.clientY)) return;
+      const ripples = ripplesRef.current;
+      if (ripples.length >= MAX_RIPPLES) ripples.shift();
+      ripples.push({
+        x: e.clientX, y: e.clientY,
+        radius: 0, maxRadius: 120 + Math.random() * 40,
+        opacity: 0.45, lineWidth: 2,
+      });
+    };
     const handleTouchMove = (e: TouchEvent) => {
-      const touch = e.touches[0];
-      if (touch) {
-        addRipple(touch.clientX, touch.clientY, 100);
-      }
+      const t = e.touches[0];
+      if (t) addRipple(t.clientX, t.clientY, 120);
     };
-
     const handleTouchStart = (e: TouchEvent) => {
-      const touch = e.touches[0];
-      if (touch) {
-        addRipple(touch.clientX, touch.clientY, 0);
-      }
+      const t = e.touches[0];
+      if (t) addRipple(t.clientX, t.clientY, 0);
     };
 
-    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mousemove", handleMove, { passive: true });
     window.addEventListener("click", handleClick);
     window.addEventListener("touchmove", handleTouchMove, { passive: true });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let lastFrame = 0;
+    const animate = (time: number) => {
+      // Throttle to ~60fps
+      if (time - lastFrame < 16) {
+        animFrameRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrame = time;
+
       const ripples = ripplesRef.current;
+      ctx.clearRect(0, 0, w, h);
+
+      if (ripples.length === 0) {
+        animFrameRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
+      const hue = isDarkRef.current ? "192, 91%, 54%" : "192, 91%, 35%";
 
       for (let i = ripples.length - 1; i >= 0; i--) {
         const r = ripples[i];
         r.radius += 1.2;
-        r.opacity -= 0.004;
-        r.lineWidth = Math.max(0.2, r.lineWidth - 0.01);
+        r.opacity -= 0.005;
+        r.lineWidth = Math.max(0.2, r.lineWidth - 0.012);
 
         if (r.opacity <= 0 || r.radius >= r.maxRadius) {
           ripples.splice(i, 1);
           continue;
         }
 
-        const isDark = document.documentElement.classList.contains('dark');
-        const color = isDark ? `hsla(192, 91%, 54%, ${r.opacity})` : `hsla(192, 91%, 35%, ${r.opacity})`;
         ctx.beginPath();
         ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = color;
+        ctx.strokeStyle = `hsla(${hue}, ${r.opacity})`;
         ctx.lineWidth = r.lineWidth;
         ctx.stroke();
       }
@@ -147,15 +138,14 @@ const CursorRipple = () => {
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("resize", resize);
-      resizeObserver.disconnect();
+      observer.disconnect();
     };
-  }, [addRipple, isOverInteractive]);
+  }, []);
 
   return (
     <canvas
       ref={canvasRef}
       className="pointer-events-none fixed inset-0 z-50"
-      style={{ position: "fixed", top: 0, left: 0 }}
     />
   );
 };

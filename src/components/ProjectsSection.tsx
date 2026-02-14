@@ -1,68 +1,62 @@
+import { memo, useCallback } from "react";
 import { Brain, Bot, BarChart3, Eye, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const ProjectsSection = () => {
-  const projects = [
-    {
-      title: "NLP Sentiment Analyzer",
-      tech: "Python, Transformers, FastAPI",
-      description: "End-to-end sentiment analysis pipeline processing 10K+ reviews daily with 94% accuracy using fine-tuned BERT models.",
-      icon: Brain,
-      pdfUrl: "/pdfs/nlp-sentiment-analyzer.pdf",
-    },
-    {
-      title: "Conversational AI Chatbot",
-      tech: "LangChain, RAG, OpenAI, Pinecone",
-      description: "Built a retrieval-augmented generation chatbot for enterprise knowledge bases, reducing support tickets by 35%.",
-      icon: Bot,
-      pdfUrl: "/pdfs/conversational-ai-chatbot.pdf",
-    },
-    {
-      title: "Predictive Maintenance System",
-      tech: "PyTorch, Time Series, MLflow",
-      description: "Developed LSTM-based anomaly detection for industrial IoT sensors, predicting equipment failures 48 hours in advance.",
-      icon: BarChart3,
-      pdfUrl: "/pdfs/predictive-maintenance.pdf",
-    },
-    {
-      title: "Computer Vision Quality Control",
-      tech: "TensorFlow, OpenCV, Docker",
-      description: "Real-time defect detection system for manufacturing lines achieving 99.2% precision at 30 FPS inference speed.",
-      icon: Eye,
-      pdfUrl: "/pdfs/computer-vision-qc.pdf",
-    },
-  ];
+const projects = [
+  {
+    title: "NLP Sentiment Analyzer",
+    tech: "Python, Transformers, FastAPI",
+    description: "End-to-end sentiment analysis pipeline processing 10K+ reviews daily with 94% accuracy using fine-tuned BERT models.",
+    icon: Brain,
+    pdfUrl: "/pdfs/nlp-sentiment-analyzer.pdf",
+  },
+  {
+    title: "Conversational AI Chatbot",
+    tech: "LangChain, RAG, OpenAI, Pinecone",
+    description: "Built a retrieval-augmented generation chatbot for enterprise knowledge bases, reducing support tickets by 35%.",
+    icon: Bot,
+    pdfUrl: "/pdfs/conversational-ai-chatbot.pdf",
+  },
+  {
+    title: "Predictive Maintenance System",
+    tech: "PyTorch, Time Series, MLflow",
+    description: "Developed LSTM-based anomaly detection for industrial IoT sensors, predicting equipment failures 48 hours in advance.",
+    icon: BarChart3,
+    pdfUrl: "/pdfs/predictive-maintenance.pdf",
+  },
+  {
+    title: "Computer Vision Quality Control",
+    tech: "TensorFlow, OpenCV, Docker",
+    description: "Real-time defect detection system for manufacturing lines achieving 99.2% precision at 30 FPS inference speed.",
+    icon: Eye,
+    pdfUrl: "/pdfs/computer-vision-qc.pdf",
+  },
+];
+
+const ProjectsSection = memo(() => {
+  const openPdf = useCallback((url: string) => window.open(url, '_blank'), []);
 
   return (
     <section id="projects" className="py-16 sm:py-24 bg-secondary/30">
       <div className="container px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          {/* Section header */}
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Projects</h2>
             <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground">
               Featured <span className="gradient-text">Work</span>
             </h3>
           </div>
-
-          {/* Timeline */}
           <div className="relative">
-            {/* Central vertical line */}
             <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-transparent hidden md:block" />
-
             <div className="space-y-8 sm:space-y-12">
               {projects.map((project, index) => {
                 const isLeft = index % 2 === 0;
                 const Icon = project.icon;
-
                 return (
                   <div key={index} className="relative flex items-center">
-                    {/* Center dot */}
                     <div className="absolute left-1/2 -translate-x-1/2 z-10 w-12 h-12 rounded-full bg-card border-2 border-primary/30 items-center justify-center shrink-0 hidden md:flex">
                       <Icon className="w-5 h-5 text-primary" />
                     </div>
-
-                    {/* Card */}
                     <div
                       className={`w-full md:w-[calc(50%-2.5rem)] gradient-border rounded-xl p-4 sm:p-6 hover:scale-[1.02] transition-transform duration-300 ${
                         isLeft ? "md:mr-auto" : "md:ml-auto"
@@ -79,7 +73,7 @@ const ProjectsSection = () => {
                         variant="outline"
                         size="sm"
                         className="gap-2 text-xs sm:text-sm"
-                        onClick={() => window.open(project.pdfUrl, '_blank')}
+                        onClick={() => openPdf(project.pdfUrl)}
                       >
                         <FileText className="w-4 h-4" />
                         View Project PDF
@@ -94,6 +88,7 @@ const ProjectsSection = () => {
       </div>
     </section>
   );
-};
+});
 
+ProjectsSection.displayName = "ProjectsSection";
 export default ProjectsSection;

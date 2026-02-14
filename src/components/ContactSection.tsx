@@ -1,18 +1,18 @@
+import { memo } from "react";
 import { Button } from "@/components/ui/button";
 import { Linkedin, Mail, Github } from "lucide-react";
 
-const ContactSection = () => {
-  const socialLinks = [
-    { icon: Linkedin, href: "https://www.linkedin.com/in/mbilotta/", label: "LinkedIn" },
-    { icon: Github, href: "https://github.com/mbilo126", label: "GitHub" },
-    { icon: Mail, href: "mailto:m.bilotta01@gmail.com", label: "Email" },
-  ];
+const socialLinks = [
+  { icon: Linkedin, href: "https://www.linkedin.com/in/mbilotta/", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/mbilo126", label: "GitHub" },
+  { icon: Mail, href: "mailto:m.bilotta01@gmail.com", label: "Email" },
+];
 
+const ContactSection = memo(() => {
   return (
     <section id="contact" className="py-16 sm:py-24 bg-secondary/30">
       <div className="container px-4 sm:px-6">
         <div className="max-w-3xl mx-auto text-center">
-          {/* Section header */}
           <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Get in Touch</h2>
           <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6">
             Let's <span className="gradient-text">Connect</span>
@@ -21,16 +21,12 @@ const ContactSection = () => {
             Interested in collaboration, speaking opportunities, or just want to chat about AI?
             I'd love to hear from you.
           </p>
-
-          {/* Main CTA */}
           <Button variant="hero" size="xl" className="mb-10 sm:mb-12" asChild>
             <a href="https://www.linkedin.com/in/mbilotta/" target="_blank" rel="noopener noreferrer">
               <Linkedin className="mr-2 h-5 w-5" />
               Connect on Linkedin
             </a>
           </Button>
-
-          {/* Social links */}
           <div className="flex justify-center gap-4">
             {socialLinks.map((social, index) => (
               <a
@@ -38,17 +34,15 @@ const ContactSection = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all duration-300 group"
+                className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-colors duration-200 group"
                 aria-label={social.label}
               >
-                <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
               </a>
             ))}
           </div>
         </div>
       </div>
-
-      {/* Footer */}
       <div className="mt-16 sm:mt-24 pt-8 border-t border-border">
         <div className="container px-4 sm:px-6">
           <p className="text-center text-xs sm:text-sm text-muted-foreground">
@@ -58,6 +52,7 @@ const ContactSection = () => {
       </div>
     </section>
   );
-};
+});
 
+ContactSection.displayName = "ContactSection";
 export default ContactSection;

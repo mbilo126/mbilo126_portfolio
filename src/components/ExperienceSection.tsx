@@ -1,53 +1,47 @@
+import { memo } from "react";
 import { Building2, GraduationCap } from "lucide-react";
 
-const ExperienceSection = () => {
-  const experiences = [
-    {
-      type: "work",
-      title: "Data Scientist",
-      company: "STORViX",
-      period: "2025 - 2026",
-      description: "Built production NLP models, improved model accuracy by 40%, deployed ML pipelines."
-    },
-    {
-      type: "education",
-      title: "AI and Machine Learning higher vet",
-      company: "ITS Angelo Rizzoli",
-      period: "2024 - 2026",
-      description: "Specialized in machine learning and artificial intelligence. Published 1 research paper."
-    },
-    {
-      type: "education",
-      title: "Automation Engineering bachelor",
-      company: "Politecnico di Milano",
-      period: "2020 - 2023",
-      description: "Studied algorythm basics and advanced mathematics, C programming and software engineering."
-    }
-  ];
+const experiences = [
+  {
+    type: "work",
+    title: "Data Scientist",
+    company: "STORViX",
+    period: "2025 - 2026",
+    description: "Built production NLP models, improved model accuracy by 40%, deployed ML pipelines."
+  },
+  {
+    type: "education",
+    title: "AI and Machine Learning higher vet",
+    company: "ITS Angelo Rizzoli",
+    period: "2024 - 2026",
+    description: "Specialized in machine learning and artificial intelligence. Published 1 research paper."
+  },
+  {
+    type: "education",
+    title: "Automation Engineering bachelor",
+    company: "Politecnico di Milano",
+    period: "2020 - 2023",
+    description: "Studied algorythm basics and advanced mathematics, C programming and software engineering."
+  }
+];
 
+const ExperienceSection = memo(() => {
   return (
     <section id="experience" className="py-16 sm:py-24 relative">
       <div className="absolute inset-0 neural-pattern opacity-50" />
-
       <div className="container relative z-10 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
-          {/* Section header */}
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Experience</h2>
             <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground">
               Professional <span className="gradient-text">Journey</span>
             </h3>
           </div>
-
-          {/* Timeline */}
           <div className="relative">
-            {/* Vertical line */}
             <div className="absolute left-5 sm:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-transparent" />
-
             <div className="space-y-6 sm:space-y-8">
               {experiences.map((exp, index) => (
                 <div key={index} className="relative flex gap-3 sm:gap-6">
-                  {/* Icon */}
                   <div className="relative z-10 w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-card border-2 border-primary/30 flex items-center justify-center shrink-0">
                     {exp.type === "education" ? (
                       <GraduationCap className="w-4 h-4 sm:w-6 sm:h-6 text-primary" />
@@ -55,8 +49,6 @@ const ExperienceSection = () => {
                       <Building2 className="w-4 h-4 sm:w-6 sm:h-6 text-primary" />
                     )}
                   </div>
-
-                  {/* Content card */}
                   <div className="flex-1 min-w-0 gradient-border rounded-xl p-4 sm:p-6 hover:scale-[1.02] transition-transform duration-300">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2 mb-2">
                       <h4 className="font-display font-semibold text-base sm:text-lg text-foreground">{exp.title}</h4>
@@ -73,6 +65,7 @@ const ExperienceSection = () => {
       </div>
     </section>
   );
-};
+});
 
+ExperienceSection.displayName = "ExperienceSection";
 export default ExperienceSection;
