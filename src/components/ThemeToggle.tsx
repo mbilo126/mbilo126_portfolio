@@ -1,53 +1,65 @@
 import { useEffect, useState } from "react";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, Monitor } from "lucide-react";
+
+type Theme = "system" | "light" | "dark";
+
+const themes: { value: Theme; icon: React.ReactNode; label: string }[] = [
+  { value: "light", icon: <Sun className="w-4 h-4" />, label: "Light" },
+  { value: "system", icon: <Monitor className="w-4 h-4" />, label: "System" },
+  { value: "dark", icon: <Moon className="w-4 h-4" />, label: "Dark" },
+];
+
+function applyTheme(theme: Theme) {
+  const isDark =
+    theme === "dark" ||
+    (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  document.documentElement.classList.toggle("dark", isDark);
+}
 
 const ThemeToggle = () => {
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window === "undefined") return true;
-    const stored = localStorage.getItem("theme");
-    if (stored) return stored === "dark";
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "system";
+    return (localStorage.getItem("theme") as Theme) || "system";
   });
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (isDark) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-  }, [isDark]);
+    applyTheme(theme);
+  }, [theme]);
 
-  const handleToggle = () => {
-    const next = !isDark;
-    setIsDark(next);
-    localStorage.setItem("theme", next ? "dark" : "light");
-  };
-
-  // Listen for system theme changes
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const handler = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem("theme")) {
-        setIsDark(e.matches);
+    const handler = () => {
+      if ((localStorage.getItem("theme") || "system") === "system") {
+        applyTheme("system");
       }
     };
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
 
+  const handleSet = (t: Theme) => {
+    setTheme(t);
+    localStorage.setItem("theme", t);
+  };
+
   return (
-    <button
-      onClick={handleToggle}
-      className="p-2 rounded-lg hover:bg-secondary transition-colors"
-      aria-label="Toggle theme"
-    >
-      {isDark ? (
-        <Sun className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
-      ) : (
-        <Moon className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
-      )}
-    </button>
+    <div className="flex items-center bg-secondary/60 rounded-lg p-0.5 gap-0.5">
+      {themes.map((t) => (
+        <button
+          key={t.value}
+          onClick={() => handleSet(t.value)}
+          className={`p-1.5 rounded-md transition-all duration-200 ${
+            theme === t.value
+              ? "bg-primary text-primary-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+          aria-label={t.label}
+          title={t.label}
+        >
+          {t.icon}
+        </button>
+      ))}
+    </div>
   );
 };
 
