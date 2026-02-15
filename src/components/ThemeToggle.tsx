@@ -14,6 +14,12 @@ function applyTheme(theme: Theme) {
     theme === "dark" ||
     (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
   document.documentElement.classList.toggle("dark", isDark);
+  // Update status bar color
+  document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) {
+    metaTheme.setAttribute("content", isDark ? "#0f1729" : "#e8edf4");
+  }
 }
 
 const ThemeToggle = () => {
