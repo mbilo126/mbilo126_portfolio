@@ -77,33 +77,17 @@ const CursorRipple = () => {
     };
     const handleTouchMove = (e: TouchEvent) => {
       const t = e.touches[0];
-      if (t) addRipple(t.clientX, t.clientY, 60);
+      if (t) addRipple(t.clientX, t.clientY, 40);
     };
     const handleTouchStart = (e: TouchEvent) => {
       const t = e.touches[0];
       if (t) addRipple(t.clientX, t.clientY, 0);
     };
 
-    // Track last known touch position for scroll-generated ripples
-    let lastTouchX = 0, lastTouchY = 0;
-    const trackTouch = (e: TouchEvent) => {
-      const t = e.touches[0];
-      if (t) { lastTouchX = t.clientX; lastTouchY = t.clientY; }
-    };
-    const handleScroll = () => {
-      // Generate ripple at last known touch/mouse position during scroll
-      if (lastTouchX || lastTouchY) {
-        addRipple(lastTouchX, lastTouchY, 80);
-      }
-    };
-
     window.addEventListener("mousemove", handleMove, { passive: true });
     window.addEventListener("click", handleClick);
     window.addEventListener("touchmove", handleTouchMove, { passive: true });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", trackTouch, { passive: true });
-    window.addEventListener("touchstart", trackTouch, { passive: true });
-    window.addEventListener("scroll", handleScroll, { passive: true });
 
     let lastFrame = 0;
     const animate = (time: number) => {
@@ -153,9 +137,6 @@ const CursorRipple = () => {
       window.removeEventListener("click", handleClick);
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", trackTouch);
-      window.removeEventListener("touchstart", trackTouch);
-      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", resize);
       observer.disconnect();
     };
