@@ -27,7 +27,11 @@
       document.documentElement.classList.toggle('dark', d);
       document.documentElement.style.colorScheme = d ? 'dark' : 'light';
       var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', d ? '#0f1729' : '#e8edf4');
+      if (m) m.remove();
+      m = document.createElement('meta');
+      m.setAttribute('name', 'theme-color');
+      m.setAttribute('content', d ? '#0f1729' : '#e8edf4');
+      document.head.appendChild(m);
     })();
   </script>
   <div id="root"></div>

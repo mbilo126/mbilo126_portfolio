@@ -9,17 +9,22 @@ const themes: { value: Theme; icon: React.ReactNode; label: string }[] = [
   { value: "dark", icon: <Moon className="w-4 h-4" />, label: "Dark" },
 ];
 
+function updateThemeColor(color: string) {
+  let metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) metaTheme.remove();
+  metaTheme = document.createElement("meta");
+  metaTheme.setAttribute("name", "theme-color");
+  metaTheme.setAttribute("content", color);
+  document.head.appendChild(metaTheme);
+}
+
 function applyTheme(theme: Theme) {
   const isDark =
     theme === "dark" ||
     (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
   document.documentElement.classList.toggle("dark", isDark);
-  // Update status bar color
   document.documentElement.style.colorScheme = isDark ? "dark" : "light";
-  const metaTheme = document.querySelector('meta[name="theme-color"]');
-  if (metaTheme) {
-    metaTheme.setAttribute("content", isDark ? "#0f1729" : "#e8edf4");
-  }
+  updateThemeColor(isDark ? "#0f1729" : "#e8edf4");
 }
 
 const ThemeToggle = () => {
