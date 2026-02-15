@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Button } from "@/components/ui/button";
 import { Linkedin, Mail, Github } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const socialLinks = [
   { icon: Linkedin, href: "https://www.linkedin.com/in/mbilotta/", label: "LinkedIn" },
@@ -9,10 +10,21 @@ const socialLinks = [
 ];
 
 const ContactSection = memo(() => {
+  const { ref: contentRef, isVisible: contentVisible, hasBeenVisible: contentHasBeenVisible } = useScrollAnimation({ threshold: 0.2 });
+
+  const getAnimationClass = () => {
+    if (contentVisible) return 'scroll-visible-premium';
+    if (contentHasBeenVisible) return 'scroll-fade-out';
+    return 'scroll-hidden';
+  };
+
   return (
     <section id="contact" className="py-16 sm:py-24 bg-secondary/30">
       <div className="container px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto text-center">
+        <div
+          ref={contentRef}
+          className={`max-w-3xl mx-auto text-center ${getAnimationClass()}`}
+        >
           <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Get in Touch</h2>
           <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6">
             Let's <span className="gradient-text">Connect</span>
