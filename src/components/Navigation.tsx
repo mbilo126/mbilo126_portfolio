@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -7,12 +7,27 @@ import { createPortal } from "react-dom";
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
+    const sectionIds = ["about", "skills", "projects", "experience", "contact"];
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      const scrollY = window.scrollY + 120;
+      let current = "";
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollY) {
+          current = id;
+        }
+      }
+      setActiveSection(current);
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -55,9 +70,16 @@ const Navigation = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="relative text-sm text-muted-foreground hover:text-foreground transition-colors flex flex-col items-center gap-1"
                 >
                   {link.label}
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full bg-primary transition-all duration-300 ${
+                      activeSection === link.href.slice(1)
+                        ? "opacity-100 scale-100"
+                        : "opacity-0 scale-0"
+                    }`}
+                  />
                 </a>
               ))}
               <ThemeToggle />
