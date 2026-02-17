@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -8,6 +8,9 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
+  const navContainerRef = useRef<HTMLDivElement>(null);
+  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
 
   useEffect(() => {
     const sectionIds = ["about", "skills", "projects", "experience", "contact"];
@@ -31,6 +34,25 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Update sliding indicator position
+  useEffect(() => {
+    if (!activeSection || !navContainerRef.current) {
+      setIndicatorStyle(prev => ({ ...prev, opacity: 0 }));
+      return;
+    }
+    const linkEl = linkRefs.current[activeSection];
+    const container = navContainerRef.current;
+    if (linkEl && container) {
+      const linkRect = linkEl.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      setIndicatorStyle({
+        left: linkRect.left - containerRect.left + linkRect.width / 2 - 3,
+        width: 6,
+        opacity: 1,
+      });
+    }
+  }, [activeSection]);
+
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -41,6 +63,16 @@ const Navigation = () => {
       document.body.style.overflow = "auto";
     };
   }, [isMobileMenuOpen]);
+
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const id = href.slice(1);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    setIsMobileMenuOpen(false);
+  }, []);
 
   const navLinks = [
     { href: "#about", label: "About" },
@@ -65,23 +97,31 @@ const Navigation = () => {
               AI/ML Projects
             </a>
 
-            <div className="hidden md:flex items-center gap-8">
+            <div ref={navContainerRef} className="hidden md:flex items-center gap-8 relative">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
+                  ref={(el) => { linkRefs.current[link.href.slice(1)] = el; }}
                   href={link.href}
-                  className="relative text-sm text-muted-foreground hover:text-foreground transition-colors flex flex-col items-center gap-1"
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`relative text-sm transition-colors duration-300 ${
+                    activeSection === link.href.slice(1)
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
                   {link.label}
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full bg-primary transition-all duration-300 ${
-                      activeSection === link.href.slice(1)
-                        ? "opacity-100 scale-100"
-                        : "opacity-0 scale-0"
-                    }`}
-                  />
                 </a>
               ))}
+              {/* Sliding dot indicator */}
+              <span
+                className="absolute -bottom-2 h-1.5 w-1.5 rounded-full bg-primary transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+                style={{
+                  transform: `translateX(${indicatorStyle.left}px)`,
+                  opacity: indicatorStyle.opacity,
+                  left: 0,
+                }}
+              />
               <ThemeToggle />
               <Button variant="hero" size="sm" asChild>
                 <a
@@ -109,7 +149,7 @@ const Navigation = () => {
         </div>
       </nav>
 
-      {/* Portal-based mobile menu overlay — fully fixed, independent of scroll */}
+      {/* Portal-based mobile menu overlay */}
       {createPortal(
         <div
           className={`fixed inset-0 z-[60] md:hidden transition-opacity duration-300 ${
@@ -128,8 +168,6 @@ const Navigation = () => {
           }}
           onClick={() => setIsMobileMenuOpen(false)}
         >
-          {/* Glass menu card */}
-          {/* Close button */}
           <button
             className="absolute top-5 right-5 z-[70] p-3 rounded-full hover:bg-white/10 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/30"
             onClick={() => setIsMobileMenuOpen(false)}
@@ -153,9 +191,20 @@ const Navigation = () => {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="text-base text-muted-foreground hover:text-foreground transition-colors py-2.5 px-3 rounded-lg hover:bg-primary/5"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`text-base transition-colors py-2.5 px-3 rounded-lg flex items-center gap-3 ${
+                      activeSection === link.href.slice(1)
+                        ? "text-foreground bg-primary/10"
+                        : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
+                    }`}
+                    onClick={(e) => handleNavClick(e, link.href)}
                   >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full bg-primary transition-all duration-300 ${
+                        activeSection === link.href.slice(1)
+                          ? "opacity-100 scale-100"
+                          : "opacity-0 scale-0"
+                      }`}
+                    />
                     {link.label}
                   </a>
                 ))}
