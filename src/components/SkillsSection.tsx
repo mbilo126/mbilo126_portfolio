@@ -28,7 +28,7 @@ const SkillCategory = ({ category, index }: { category: typeof skillCategories[0
         {category.skills.map((skill, skillIndex) => (
           <span
             key={skillIndex}
-            className="px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors duration-200 cursor-default"
+            className="skill-tag px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300 cursor-default"
           >
             {skill}
           </span>
