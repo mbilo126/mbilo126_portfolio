@@ -46,7 +46,7 @@ const ExperienceCard = ({ exp, index }: { exp: typeof experiences[0]; index: num
           <Building2 className="w-4 h-4 sm:w-6 sm:h-6 text-primary" />
         )}
       </div>
-      <div className="flex-1 min-w-0 premium-hover gradient-border rounded-xl p-4 sm:p-6 hover:scale-[1.02] transition-transform duration-300">
+      <div className="flex-1 min-w-0 gradient-border rounded-xl p-4 sm:p-6 hover:scale-[1.02] transition-transform duration-300">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2 mb-2">
           <h4 className="font-display font-semibold text-base sm:text-lg text-foreground">{exp.title}</h4>
           <span className="text-xs sm:text-sm text-primary font-medium">{exp.period}</span>
