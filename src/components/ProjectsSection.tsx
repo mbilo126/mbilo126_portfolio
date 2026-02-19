@@ -52,7 +52,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
       </div>
       <div
         ref={ref}
-        className={`w-full md:w-[calc(50%-2.5rem)] gradient-border rounded-xl p-4 sm:p-6 hover:scale-[1.02] transition-transform duration-300 ${isLeft ? "md:mr-auto" : "md:ml-auto"
+        className={`w-full md:w-[calc(50%-2.5rem)] led-border gradient-border rounded-xl p-4 sm:p-6 hover:scale-[1.02] transition-transform duration-300 ${isLeft ? "md:mr-auto" : "md:ml-auto"
           } ${getAnimationClass()}`}
       >
         <div className="flex items-center gap-3 mb-2 md:hidden">

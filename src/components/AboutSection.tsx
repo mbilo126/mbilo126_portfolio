@@ -83,14 +83,14 @@ const AboutSection = memo(() => {
             </div>
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {/* First two boxes - animated with text */}
-              <div className={`gradient-border rounded-xl p-4 sm:p-6 hover:scale-105 transition-transform duration-300 group ${getTextAndFirstBoxesClass()}`}>
+              <div className={`led-border gradient-border rounded-xl p-4 sm:p-6 hover:scale-105 transition-transform duration-300 group ${getTextAndFirstBoxesClass()}`}>
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-primary/20 transition-colors duration-200">
                   <Brain className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                 </div>
                 <h4 className="font-display font-semibold text-sm sm:text-base text-foreground mb-1 sm:mb-2">Deep Learning</h4>
                 <p className="text-xs sm:text-sm text-muted-foreground">Deep knowledge of neural network architectures, transformers, and cutting-edge AI models</p>
               </div>
-              <div className={`gradient-border rounded-xl p-4 sm:p-6 hover:scale-105 transition-transform duration-300 group ${getTextAndFirstBoxesClass()}`}>
+              <div className={`led-border gradient-border rounded-xl p-4 sm:p-6 hover:scale-105 transition-transform duration-300 group ${getTextAndFirstBoxesClass()}`}>
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-primary/20 transition-colors duration-200">
                   <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                 </div>
@@ -98,14 +98,14 @@ const AboutSection = memo(() => {
                 <p className="text-xs sm:text-sm text-muted-foreground">Building scalable ML pipelines and production-ready AI systems</p>
               </div>
               {/* Last two boxes - animated separately */}
-              <div ref={lastBoxesRef} className={`gradient-border rounded-xl p-4 sm:p-6 hover:scale-105 transition-transform duration-300 group ${getLastBoxesClass()}`}>
+              <div ref={lastBoxesRef} className={`led-border gradient-border rounded-xl p-4 sm:p-6 hover:scale-105 transition-transform duration-300 group ${getLastBoxesClass()}`}>
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-primary/20 transition-colors duration-200">
                   <Database className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                 </div>
                 <h4 className="font-display font-semibold text-sm sm:text-base text-foreground mb-1 sm:mb-2">Big Data</h4>
                 <p className="text-xs sm:text-sm text-muted-foreground">Processing and analyzing massive datasets for actionable insights</p>
               </div>
-              <div className={`gradient-border rounded-xl p-4 sm:p-6 hover:scale-105 transition-transform duration-300 group ${getLastBoxesClass()}`}>
+              <div className={`led-border gradient-border rounded-xl p-4 sm:p-6 hover:scale-105 transition-transform duration-300 group ${getLastBoxesClass()}`}>
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-primary/20 transition-colors duration-200">
                   <Layers className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                 </div>
