@@ -12,26 +12,64 @@ const Navigation = () => {
   const navContainerRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
 
+  // Scroll detection for navbar background
   useEffect(() => {
-    const sectionIds = ["about", "skills", "projects", "experience", "contact"];
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-
-      const scrollY = window.scrollY + 120;
-      let current = "";
-      for (const id of sectionIds) {
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= scrollY) {
-          current = id;
-        }
-      }
-      setActiveSection(current);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // IntersectionObserver for active section detection
+  useEffect(() => {
+    const sectionIds = ["about", "skills", "projects", "experience", "contact"];
+    const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find the most visible section
+        let best: { id: string; ratio: number } | null = null;
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (!best || entry.intersectionRatio > best.ratio) {
+              best = { id: entry.target.id, ratio: entry.intersectionRatio };
+            }
+          }
+        });
+
+        // If an entry triggered, find the topmost visible section overall
+        const visibleSections = sectionEls.filter(el => {
+          const rect = el.getBoundingClientRect();
+          const viewportH = window.innerHeight;
+          const visibleH = Math.min(rect.bottom, viewportH) - Math.max(rect.top, 0);
+          return visibleH / rect.height > 0.2;
+        });
+
+        if (visibleSections.length > 0) {
+          // Pick the one closest to the center of the viewport
+          const viewportCenter = window.innerHeight / 2;
+          let closest = visibleSections[0];
+          let closestDist = Infinity;
+          for (const el of visibleSections) {
+            const rect = el.getBoundingClientRect();
+            const sectionCenter = rect.top + rect.height / 2;
+            const dist = Math.abs(sectionCenter - viewportCenter);
+            if (dist < closestDist) {
+              closestDist = dist;
+              closest = el;
+            }
+          }
+          setActiveSection(closest.id);
+        }
+      },
+      {
+        threshold: [0.1, 0.3, 0.5, 0.7],
+        rootMargin: "-10% 0px -10% 0px",
+      }
+    );
+
+    sectionEls.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   // Update sliding indicator position
