@@ -4,7 +4,7 @@ import { Linkedin, Mail, ChevronDown } from "lucide-react";
 
 const HeroSection = memo(() => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden neural-pattern">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden neural-pattern">
       {/* Animated background elements — GPU-composited */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-primary/10 rounded-full blur-3xl will-change-transform" />

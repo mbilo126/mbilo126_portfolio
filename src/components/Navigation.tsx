@@ -22,7 +22,7 @@ const Navigation = () => {
 
   // IntersectionObserver for active section detection
   useEffect(() => {
-    const sectionIds = ["about", "skills", "projects", "experience", "contact"];
+    const sectionIds = ["hero", "about", "skills", "projects", "experience", "contact"];
     const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[];
 
     const observer = new IntersectionObserver(
@@ -113,6 +113,7 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
+    { href: "#hero", label: "Home" },
     { href: "#about", label: "About" },
     { href: "#skills", label: "Skills" },
     { href: "#projects", label: "Projects" },
